@@ -6,6 +6,7 @@
 
 # Import from openfisca-core the common Python objects used to code the legislation in OpenFisca
 from openfisca_core.model_api import *
+from openfisca_core.periods import Instant
 # Import the Entities specifically defined for this tax and benefit system
 from openfisca_country_template.entities import *
 
@@ -58,4 +59,19 @@ class pension(Variable):
         In Arabic: تقاعد.
         '''
         age_condition = person('age', period) >= parameters(period).general.age_of_retirement
+        return age_condition
+
+
+class eligible_for_scholarship(Variable):
+    value_type = bool
+    entity = Person
+    definition_period = YEAR
+
+    def formula(person, period, parameters):
+        july_first = Instant(
+            (period.start.year, 7, 1)
+            ).period('month')
+
+        age_condition = person('age', july_first) < 25
+
         return age_condition

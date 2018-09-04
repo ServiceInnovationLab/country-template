@@ -1,0 +1,22 @@
+- name: Someone who turns 25 before july 1st is not eligible
+  period: 2017
+  input_variables:
+    birth: 1992-02-15
+  output_variables:
+    age:
+      2017-02: 24
+      2017-03: 25
+    eligible_for_scholarship:
+      2017: false
+
+
+- name: Someone who turns 25 after july 1st is eligible
+  period: 2017
+  input_variables:
+    birth: 1992-10-15
+  output_variables:
+    age:
+      2017-10: 24
+      2017-11: 25
+    eligible_for_scholarship:
+      2015: true
